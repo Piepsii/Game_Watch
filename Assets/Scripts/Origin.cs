@@ -25,8 +25,6 @@ public class Origin : MonoBehaviour
 
     public void Activate(Direction direction)
     {
-
-
         switch (direction)
         {
             case Direction.UP:
