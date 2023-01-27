@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D;
 using UnityEngine.UIElements;
 
 public class SequenceDisplay : MonoBehaviour
@@ -14,6 +15,7 @@ public class SequenceDisplay : MonoBehaviour
     public List<Direction> sequence;
     [Range(0, 8)] public int startIndex = 1;
     int sequenceIndex = 0;
+    bool delayActive = false;
 
     private void Start()
     {
@@ -51,17 +53,21 @@ public class SequenceDisplay : MonoBehaviour
 
     public void UpdateCurrentPoint(Origin point)
     {
+
         sequenceIndex++;
+
+        if (sequenceIndex >= sequence.Count)
+            return;
+
+
         currentPoint = point;
         NextLine();
     }
 
     private void NextLine()
     {
-        if (sequenceIndex >= sequence.Count)
-            return;
-
-        currentPoint.Activate(sequence[sequenceIndex]);
+        if (!delayActive)
+            StartCoroutine(DelayLine());
     }
 
     public List<Direction> GetSequence()
@@ -72,5 +78,15 @@ public class SequenceDisplay : MonoBehaviour
     public int GetStartIndex()
     {
         return startIndex;
+    }
+
+
+    IEnumerator DelayLine()
+    {
+        delayActive = true;
+        yield return new WaitForSeconds(0.07f);
+
+        delayActive = false;
+        currentPoint.Activate(sequence[sequenceIndex]);
     }
 }
