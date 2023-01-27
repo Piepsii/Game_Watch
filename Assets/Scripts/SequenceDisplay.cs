@@ -61,7 +61,7 @@ public class SequenceDisplay : MonoBehaviour
         if (sequenceIndex >= sequence.Count)
             return;
 
-        StartCoroutine(DrawLine());
+        currentPoint.Activate(sequence[sequenceIndex]);
     }
 
     public List<Direction> GetSequence()
@@ -72,12 +72,5 @@ public class SequenceDisplay : MonoBehaviour
     public int GetStartIndex()
     {
         return startIndex;
-    }
-
-    IEnumerator DrawLine()
-    {
-        yield return new WaitForSeconds(0.1f);
-
-        currentPoint.Activate(sequence[sequenceIndex]);
     }
 }
