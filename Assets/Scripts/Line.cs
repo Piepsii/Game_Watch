@@ -18,7 +18,10 @@ public class Line : MonoBehaviour
 
     public void SetActive(bool active)
     {
-        sprite.enabled = active;
+        if (active)
+            StartCoroutine(DelayLine());
+        else
+            sprite.enabled = active;
     }
 
     public void SetNextPointFrom(Origin start)
@@ -29,6 +32,12 @@ public class Line : MonoBehaviour
             display.UpdateCurrentPoint(PointA);
         else
             Debug.LogError("Shit broke");
+    }
 
+
+    IEnumerator DelayLine()
+    {
+        yield return new WaitForSeconds(0.1f);
+        sprite.enabled = true;
     }
 }

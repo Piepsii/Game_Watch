@@ -58,8 +58,6 @@ public class SequenceDisplay : MonoBehaviour
 
     private void NextLine()
     {
-        Debug.Log(sequenceIndex);
-
         if (sequenceIndex >= sequence.Count)
             return;
 
