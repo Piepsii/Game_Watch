@@ -11,7 +11,7 @@ public class SequenceDisplay : MonoBehaviour
     List<Origin> originList = new List<Origin>();
     List<Line> lineList = new List<Line>();
 
-    [SerializeField] List<Direction> sequence;
+    public List<Direction> sequence;
     int sequenceIndex = 0;
 
     private void Start()
