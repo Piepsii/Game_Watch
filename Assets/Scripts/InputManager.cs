@@ -10,11 +10,21 @@ public class InputManager : MonoBehaviour
     [SerializeField] List<Direction> InputList = new List<Direction>();
     [SerializeField] List<Direction> CurrentSequence = new List<Direction>();
 
+    [SerializeField] AudioClip failSequence;
+    [SerializeField] AudioClip enterSequence;
+    [SerializeField] AudioClip finishSequence;
+    [SerializeField] AudioClip failGame;
+
+    [SerializeField] Animator flicker;
+
+    private AudioSource audioSource;
+
     private int inputIndex = -1;
     private bool checkInput = false;
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         SetNewPattern();
     }
 
@@ -52,12 +62,19 @@ public class InputManager : MonoBehaviour
             {
                 InputList.Clear();
                 inputIndex = -1;
+                audioSource.PlayOneShot(failSequence, 0.5f);
+                flicker.SetTrigger("flicker");
             }
             else if (InputList.Count == CurrentSequence.Count) 
             {
                 InputList.Clear();
                 inputIndex = -1;
                 SetNewPattern();
+                audioSource.PlayOneShot(finishSequence);
+            }
+            else
+            {
+                audioSource.PlayOneShot(enterSequence);
             }
 
             checkInput = false;
