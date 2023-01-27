@@ -5,6 +5,7 @@ using UnityEngine;
 public class InputManager : MonoBehaviour
 {
     [SerializeField] SequenceDisplay display;
+    [SerializeField] PatternDatabase patternDatabase;
 
     [SerializeField] List<Direction> InputList = new List<Direction>();
     [SerializeField] List<Direction> CurrentSequence = new List<Direction>();
@@ -14,7 +15,7 @@ public class InputManager : MonoBehaviour
 
     private void Start()
     {
-        display.sequence = CurrentSequence;
+        SetNewPattern();
     }
 
     private void Update()
@@ -52,8 +53,22 @@ public class InputManager : MonoBehaviour
                 InputList.Clear();
                 inputIndex = -1;
             }
+            else if (InputList.Count == CurrentSequence.Count) 
+            {
+                InputList.Clear();
+                inputIndex = -1;
+                SetNewPattern();
+            }
 
             checkInput = false;
         }
+    }
+
+    void SetNewPattern()
+    {
+        Pattern pattern = patternDatabase.GetRandomPattern();
+        display.sequence = CurrentSequence = pattern.Sequence;
+        display.startIndex = pattern.startIndex;
+        display.Reset();
     }
 }

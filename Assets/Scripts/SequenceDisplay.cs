@@ -12,7 +12,7 @@ public class SequenceDisplay : MonoBehaviour
     List<Line> lineList = new List<Line>();
 
     public List<Direction> sequence;
-    [Range(0, 8)] [SerializeField] int startIndex = 1;
+    [Range(0, 8)] public int startIndex = 1;
     int sequenceIndex = 0;
 
     private void Start()
@@ -23,15 +23,28 @@ public class SequenceDisplay : MonoBehaviour
         foreach (Line line in gameObject.GetComponentsInChildren<Line>())
             lineList.Add(line);
 
+        Reset();
+    }
+
+    public void Reset()
+    {
         start = originList[startIndex];
-        start.SetActive(true);
         currentPoint = start;
+        sequenceIndex = 0;
 
         foreach (Origin origin in originList)
+        {
             origin.display = this;
+            origin.SetActive(false);
+        }
+        start.SetActive(true);
 
         foreach (Line line in lineList)
+        {
+
             line.display = this;
+            line.SetActive(false);
+        }
 
         NextLine();
     }

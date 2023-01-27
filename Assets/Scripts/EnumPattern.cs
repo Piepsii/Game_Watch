@@ -4,12 +4,12 @@ using UnityEngine;
 [System.Serializable]
 public struct Pattern
 {
-    public Pattern(List<Direction> Sequences, int startIndex)
+    public Pattern(List<Direction> Sequence, int startIndex)
     {
-        this.Sequences = Sequences;
+        this.Sequence = Sequence;
         this.startIndex = startIndex;
     }
 
-    public List<Direction> Sequences;
+    public List<Direction> Sequence;
     public int startIndex;
 }
