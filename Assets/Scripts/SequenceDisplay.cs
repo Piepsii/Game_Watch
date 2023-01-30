@@ -12,7 +12,7 @@ public class SequenceDisplay : MonoBehaviour
     List<Origin> originList = new List<Origin>();
     List<Line> lineList = new List<Line>();
 
-    public List<Direction> sequence;
+    public List<Direction> sequence = new List<Direction>();
     [Range(0, 8)] public int startIndex = 1;
     int sequenceIndex = 0;
     bool delayActive = false;
@@ -25,10 +25,10 @@ public class SequenceDisplay : MonoBehaviour
         foreach (Line line in gameObject.GetComponentsInChildren<Line>())
             lineList.Add(line);
 
-        Reset();
+        DoReset();
     }
 
-    public void Reset()
+    public void DoReset()
     {
         start = originList[startIndex];
         currentPoint = start;
