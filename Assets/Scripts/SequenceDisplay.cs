@@ -17,15 +17,13 @@ public class SequenceDisplay : MonoBehaviour
     int sequenceIndex = 0;
     bool delayActive = false;
 
-    private void Start()
+    public void Start()
     {
         foreach (Origin or in gameObject.GetComponentsInChildren<Origin>())
             originList.Add(or);
 
         foreach (Line line in gameObject.GetComponentsInChildren<Line>())
             lineList.Add(line);
-
-        DoReset();
     }
 
     public void DoReset()

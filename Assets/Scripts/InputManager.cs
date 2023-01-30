@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using TMPro;
 
 public class InputManager : MonoBehaviour
 {
@@ -25,6 +26,8 @@ public class InputManager : MonoBehaviour
 
     private bool isPlaying = false;
     public UnityEvent onSpacebar;
+    private int score = 0;
+    public TextMeshProUGUI scoreText;
 
     private void Start()
     {
@@ -36,6 +39,12 @@ public class InputManager : MonoBehaviour
         isPlaying = active;
     }
 
+    private void SetScore(int score)
+    {
+        this.score = score;
+        scoreText.text = score.ToString();
+    }
+
     private void Update()
     {
         if (!isPlaying)
@@ -45,6 +54,7 @@ public class InputManager : MonoBehaviour
                 onSpacebar.Invoke();
                 isPlaying = true;
                 SetNewPattern();
+                SetScore(0);
             }
         }
         if ((Input.GetKeyDown(KeyCode.W)) || (Input.GetKeyDown(KeyCode.UpArrow)))
@@ -88,6 +98,7 @@ public class InputManager : MonoBehaviour
                 inputIndex = -1;
                 SetNewPattern();
                 audioSource.PlayOneShot(finishSequence);
+                SetScore(score + 1);
             }
             else
             {
