@@ -17,6 +17,9 @@ public class SequenceDisplay : MonoBehaviour
     int sequenceIndex = 0;
     bool delayActive = false;
 
+    [HideInInspector] public List<SpriteRenderer> InfillRenderers = new List<SpriteRenderer>();
+    private int infillIndex = 0;
+
     public void Start()
     {
         foreach (Origin or in gameObject.GetComponentsInChildren<Origin>())
@@ -31,6 +34,9 @@ public class SequenceDisplay : MonoBehaviour
         start = originList[startIndex];
         currentPoint = start;
         sequenceIndex = 0;
+        ResetInfill();
+        InfillRenderers.Clear();
+        infillIndex = 0;
 
         foreach (Origin origin in originList)
         {
@@ -86,5 +92,19 @@ public class SequenceDisplay : MonoBehaviour
 
         delayActive = false;
         currentPoint.Activate(sequence[sequenceIndex]);
+    }
+
+    public void ResetInfill()
+    {
+        foreach (SpriteRenderer sprite in InfillRenderers)
+            sprite.enabled = false;
+    }
+
+    public void EnableInfill(int current)
+    {
+        for(int i = 0; i < current; i++)
+        {
+            InfillRenderers[i].enabled = true;
+        }
     }
 }
