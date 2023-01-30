@@ -85,7 +85,7 @@ public class InputManager : MonoBehaviour
         if (checkInput)
         {
             inputIndex++;
-            display.EnableInfill(inputIndex + 1);
+            StartCoroutine(EnableFillRoutine());
 
             if (InputList[inputIndex] != CurrentSequence[inputIndex])
             {
@@ -110,6 +110,12 @@ public class InputManager : MonoBehaviour
 
             checkInput = false;
         }
+    }
+
+    private IEnumerator EnableFillRoutine()
+    {
+        display.EnableInfill(inputIndex + 1);
+        yield return null;
     }
 
     void SetNewPattern()
