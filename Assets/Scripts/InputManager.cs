@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class InputManager : MonoBehaviour
 {
@@ -22,14 +23,30 @@ public class InputManager : MonoBehaviour
     private int inputIndex = -1;
     private bool checkInput = false;
 
+    private bool isPlaying = false;
+    public UnityEvent onSpacebar;
+
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        SetNewPattern();
+    }
+
+    public void SetIsPlaying(bool active)
+    {
+        isPlaying = active;
     }
 
     private void Update()
     {
+        if (!isPlaying)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                onSpacebar.Invoke();
+                isPlaying = true;
+                SetNewPattern();
+            }
+        }
         if ((Input.GetKeyDown(KeyCode.W)) || (Input.GetKeyDown(KeyCode.UpArrow)))
         {
             InputList.Add(Direction.UP);
@@ -86,6 +103,6 @@ public class InputManager : MonoBehaviour
         Pattern pattern = patternDatabase.GetRandomPattern();
         display.sequence = CurrentSequence = pattern.Sequence;
         display.startIndex = pattern.startIndex;
-        display.Reset();
+        display.DoReset();
     }
 }
