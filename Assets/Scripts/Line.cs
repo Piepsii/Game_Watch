@@ -15,13 +15,17 @@ public class Line : MonoBehaviour
     {
         sprite = GetComponent<SpriteRenderer>();
         sprite.enabled = false;
-        infillSprite = GetComponentInChildren<SpriteRenderer>();
+
+        infillSprite = transform.GetChild(0).GetComponent<SpriteRenderer>();
         infillSprite.enabled = false;
     }
 
     public void SetActive(bool active)
     {
         sprite.enabled = active;
+
+        if (active)
+            display.InfillRenderers.Add(infillSprite);
     }
 
     public void SetNextPointFrom(Origin start)

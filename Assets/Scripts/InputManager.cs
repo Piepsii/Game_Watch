@@ -84,6 +84,7 @@ public class InputManager : MonoBehaviour
         if (checkInput)
         {
             inputIndex++;
+            display.EnableInfill(inputIndex + 1);
 
             if (InputList[inputIndex] != CurrentSequence[inputIndex])
             {
@@ -91,6 +92,7 @@ public class InputManager : MonoBehaviour
                 inputIndex = -1;
                 audioSource.PlayOneShot(failSequence, 0.5f);
                 flicker.SetTrigger("flicker");
+                display.ResetInfill();
             }
             else if (InputList.Count == CurrentSequence.Count) 
             {
