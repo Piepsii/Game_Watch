@@ -9,11 +9,14 @@ public class Line : MonoBehaviour
     [HideInInspector] public SequenceDisplay display;
 
     private SpriteRenderer sprite;
+    private SpriteRenderer infillSprite;
 
     private void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();
         sprite.enabled = false;
+        infillSprite = GetComponentInChildren<SpriteRenderer>();
+        infillSprite.enabled = false;
     }
 
     public void SetActive(bool active)
