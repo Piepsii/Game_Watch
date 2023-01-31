@@ -102,6 +102,10 @@ public class SequenceDisplay : MonoBehaviour
 
     public void EnableInfill(int current)
     {
+        if(current >= InfillRenderers.Count)
+        {
+            return;
+        }
         for(int i = 0; i < current; i++)
         {
             InfillRenderers[i].enabled = true;

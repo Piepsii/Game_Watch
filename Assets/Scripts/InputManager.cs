@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Audio;
 using TMPro;
 
 public class InputManager : MonoBehaviour
@@ -18,6 +19,7 @@ public class InputManager : MonoBehaviour
     [SerializeField] AudioClip failGame;
 
     [SerializeField] Animator flicker;
+    [SerializeField] AudioMixer audioMixer;
 
     private AudioSource audioSource;
 
@@ -32,6 +34,18 @@ public class InputManager : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+    }
+
+    private void OnApplicationFocus(bool focus)
+    {
+        if (focus)
+        {
+            audioMixer.SetFloat("volume", 1f);
+        }
+        else
+        {
+            audioMixer.SetFloat("volume", 0f);
+        }
     }
 
     public void SetIsPlaying(bool active)
